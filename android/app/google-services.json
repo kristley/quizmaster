@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "463575168711",
+    "firebase_url": "https://quizmaster-6a62a-default-rtdb.europe-west1.firebasedatabase.app",
+    "project_id": "quizmaster-6a62a",
+    "storage_bucket": "quizmaster-6a62a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:463575168711:android:c0a72c6007dc59eaaf70e2",
+        "android_client_info": {
+          "package_name": "com.kristley.quizmaster"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "463575168711-49is2kfqjah02bgom1l30h20rnhkuada.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBxaCO8nyWshI69dNKzRr1O-ec6ypMZqq0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "463575168711-49is2kfqjah02bgom1l30h20rnhkuada.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "463575168711-vr630rtu6207impfu7nsjgj5ffs1hsq9.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.kristley.quizmaster"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
