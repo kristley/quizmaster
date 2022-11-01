@@ -44,24 +44,24 @@ class _ThemeDropDownState extends State<ThemeDropDown> {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<ThemeProvider>(
+    return Consumer<ThemeChangeNotifier>(
       builder: (_, themeNotifier, __){
         return DropdownButton<ThemeMode>(
           value: themeNotifier.themeMode,
           icon: const Icon(Icons.arrow_downward),
           elevation: 16,
-          style: const TextStyle(color: Colors.deepPurple),
+          style: const TextStyle(color: Colors.deepPurpleAccent),
           underline: Container(
             height: 2,
-            color: Colors.deepPurpleAccent,
+            color: Colors.deepPurple[300],
           ),
           onChanged: (newValue) {
             setState(() => themeNotifier.themeMode = newValue!);
           },
-          items: ThemeMode.values.map((ThemeMode classType) {
+          items: ThemeMode.values.map((ThemeMode themeMode) {
             return DropdownMenuItem<ThemeMode >(
-                value: classType,
-                child: Text(items[classType.index]));
+                value: themeMode,
+                child: Text(items[themeMode.index]));
           }).toList(),
         );
       }

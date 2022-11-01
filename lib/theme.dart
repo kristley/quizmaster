@@ -1,41 +1,36 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class ThemePreferences {
-  static const PREF_KEY = "theme_key";
-
-  setTheme(ThemeMode value) async {
-    var prefs = await SharedPreferences.getInstance();
-    prefs.setInt(PREF_KEY, value.index);
-  }
-
-  getTheme() async {
-    var prefs = await SharedPreferences.getInstance();
-    var theme = prefs.getInt(PREF_KEY);
-    return theme == null
-        ? ThemeMode.system
-        : ThemeMode.values[theme];
-  }
-}
-
-class ThemeProvider extends ChangeNotifier {
+class ThemeChangeNotifier extends ChangeNotifier {
+  static const _prefKey = "theme_key";
+  SharedPreferences _prefs;
   ThemeMode _themeMode = ThemeMode.system;
-  final ThemePreferences _preferences = ThemePreferences();
   ThemeMode get themeMode => _themeMode;
 
-  ThemeProvider() {
+  ThemeChangeNotifier(this._prefs) {
     getPreferences();
     notifyListeners();
   }
 
+  getTheme() {
+    var theme = _prefs.getInt(_prefKey);
+    return theme == null
+        ? ThemeMode.system
+        : ThemeMode.values[theme];
+  }
+
+  setTheme(ThemeMode value) {
+    _prefs.setInt(_prefKey, value.index);
+  }
+
   set themeMode(ThemeMode themeMode) {
     _themeMode = themeMode;
-    _preferences.setTheme(themeMode);
+    setTheme(themeMode);
     notifyListeners();
   }
 
-  void getPreferences() async {
-    _themeMode = await _preferences.getTheme();
+  void getPreferences() {
+    _themeMode = getTheme();
   }
 }
 

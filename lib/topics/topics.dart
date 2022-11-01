@@ -3,6 +3,7 @@ import 'package:quizmaster/shared/loading.dart';
 import 'package:quizmaster/topics/topic_item.dart';
 import '../services/firestore.dart';
 import '../services/models.dart';
+import 'drawer.dart';
 
 class TopicsScreen extends StatefulWidget {
   const TopicsScreen({Key? key}) : super(key: key);
@@ -44,6 +45,7 @@ class _TopicsScreenState extends State<TopicsScreen>
                 .toList(),
           );
         },
+
       ),
     );
   }

@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:provider/provider.dart';
+import 'package:quizmaster/services/firestore.dart';
+import 'package:quizmaster/services/models.dart';
 import 'package:quizmaster/shared/loading.dart';
 import 'package:quizmaster/routes.dart';
 import 'package:quizmaster/theme.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'firebase_options.dart';
 
 void main() {
@@ -24,15 +27,21 @@ class _AppState extends State<App> {
     options: DefaultFirebaseOptions.currentPlatform,
   );
 
+  late SharedPreferences _sharedPrefs;
+
+  Future<void> _getPrefs() async{
+    _sharedPrefs = await SharedPreferences.getInstance();
+  }
+
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-      future: _initialization,
+      future: Future.wait([_initialization, _getPrefs()]),
       builder: (context, snapshot) {
         if (snapshot.hasError) {
           return Text('Error: ${snapshot.error}');
         }
-        if (snapshot.connectionState != ConnectionState.done) {
+        if (snapshot.connectionState != ConnectionState.done || !snapshot.hasData) {
           return const LoadingScreen();
         }
         return dynamicThemedApp();
@@ -40,18 +49,21 @@ class _AppState extends State<App> {
     );
   }
 
-  ChangeNotifierProvider<ThemeProvider> dynamicThemedApp() {
-    return ChangeNotifierProvider(
-      create: (_) => ThemeProvider(),
-      child: Consumer<ThemeProvider>(
-          builder: (context, themeNotifier, child) {
-            return MaterialApp(
-              routes: appRoutes,
-              themeMode: themeNotifier.themeMode,
-              theme: appTheme,
-              darkTheme: appDarkTheme,
-            );
-          }),
+  MultiProvider dynamicThemedApp() {
+    return MultiProvider(
+        providers: [
+          ChangeNotifierProvider(create: (_) => ThemeChangeNotifier(_sharedPrefs), lazy: false),
+          StreamProvider(create: (_) => FirestoreService.streamReport(), initialData: Report())
+        ],
+        child: Consumer<ThemeChangeNotifier>(
+            builder: (_, ThemeChangeNotifier notifier, __) {
+              return MaterialApp(
+                routes: appRoutes,
+                themeMode: notifier.themeMode,
+                theme: appTheme,
+                darkTheme: appDarkTheme,
+              );
+            }),
     );
   }
 }
