@@ -1,16 +1,13 @@
 # quizmaster
 
-firebase driven quiz game
+This project is heavily inspired by a course on making apps with flutter on [fireship.io](https://fireship.io/)
 
-## Getting Started
+### Made my own
 
-This project is a starting point for a Flutter application.
+I have taken the liberty of changing a lot of what is taught in the course to somewhat make the app my own.
 
-A few resources to get you started if this is your first Flutter project:
+#### What I have done
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+- Made a Theme Switcher with default theme support
+- Made changes to database to store images on the cloud instead of locally
+- Updated the UI to my liking
